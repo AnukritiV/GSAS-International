@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">High-End Life Insurance Facilitation</title>
+  <desc id="desc">A navy and orange illustration of a protective shield, family silhouette and global protection network.</desc>
+  <rect width="900" height="900" fill="#082f5b"/>
+  <g opacity=".22" stroke="#9fc1df" fill="none" stroke-width="2">
+    <circle cx="450" cy="450" r="300"/>
+    <ellipse cx="450" cy="450" rx="300" ry="115"/>
+    <ellipse cx="450" cy="450" rx="145" ry="300"/>
+    <path d="M150 450h600M450 150v600"/>
+  </g>
+  <g transform="translate(450 455)">
+    <path d="M0-255c96 58 172 66 230 74v172c0 169-86 294-230 360C-144 285-230 160-230-9v-172c58-8 134-16 230-74Z" fill="#fff" opacity=".96"/>
+    <path d="M0-223c80 47 145 56 196 63V-9c0 142-69 248-196 310C-127 239-196 133-196-9v-151c51-7 116-16 196-63Z" fill="#f58220" opacity=".98"/>
+    <path d="M0-188c65 37 119 45 161 51V-8c0 116-55 202-161 255C-106 194-161 108-161-8v-129c42-6 96-14 161-51Z" fill="#082f5b"/>
+    <g fill="#fff">
+      <circle cx="0" cy="-42" r="46"/>
+      <path d="M-86 88c8-69 44-110 86-110s78 41 86 110v52H-86Z"/>
+    </g>
+    <g fill="#fff" opacity=".88">
+      <circle cx="-82" cy="20" r="28"/>
+      <circle cx="82" cy="20" r="28"/>
+      <path d="M-132 122c4-45 26-73 50-73s46 28 50 73v32h-100Z"/>
+      <path d="M32 122c4-45 26-73 50-73s46 28 50 73v32H32Z"/>
+    </g>
+  </g>
+  <g fill="#f58220">
+    <circle cx="145" cy="175" r="13"/><circle cx="744" cy="220" r="13"/><circle cx="785" cy="662" r="13"/><circle cx="124" cy="686" r="13"/>
+  </g>
+  <g stroke="#f58220" fill="none" stroke-width="6" stroke-linecap="round" opacity=".9">
+    <path d="M158 183c90 10 126 25 184 74"/>
+    <path d="M732 229c-82 15-126 30-173 69"/>
+    <path d="M773 653c-86-12-132-34-184-79"/>
+    <path d="M137 677c89-10 133-31 184-75"/>
+  </g>
+</svg>

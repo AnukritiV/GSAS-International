@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Global Strategies & Solutions International (GSAS) in Dubai." />
+  <title>Contact | GSAS International</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top" class="contact-page">
+  <header class="site-header scrolled">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="GSAS International home">
+        <img class="brand-logo" src="assets/gsas-logo-header.png" alt="GSAS International – Global Strategies and Solutions">
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#why-us">Why GSAS</a>
+        <a href="index.html#team">Consultants</a>
+        <a class="active-nav" href="contact.html">Contact</a>
+      </nav>
+      <a class="btn btn-sm btn-outline header-cta" href="quotation.html">Request a Quote</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero">
+      <div class="contact-hero-orb"></div>
+      <div class="container">
+        <div class="contact-breadcrumb reveal visible"><a href="index.html">Home</a><span>—</span>Contact</div>
+        <div class="contact-hero-grid">
+          <div class="reveal visible">
+            <div class="eyebrow"><span></span>LET'S TALK</div>
+            <h1>Start a Conversation<br><em>With GSAS.</em></h1>
+          </div>
+          <p class="reveal visible">Whether you need guidance on banking, wealth solutions, company formation, commercial brokerage or specialist advisory connections, our team is ready to understand your requirements.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-info-section">
+      <div class="container contact-info-cards">
+        <a class="contact-info-card reveal" href="tel:+971589797465">
+          <span class="contact-card-icon">☎</span>
+          <small>PHONE NUMBER</small>
+          <strong>971 58 979 7465</strong>
+          <i>Call GSAS ↗</i>
+        </a>
+        <a class="contact-info-card reveal delay-1" href="mailto:contact@gsasintl.com">
+          <span class="contact-card-icon">✉</span>
+          <small>EMAIL ADDRESS</small>
+          <strong>contact@gsasintl.com</strong>
+          <i>Send an email ↗</i>
+        </a>
+        <a class="contact-info-card reveal delay-2" href="https://maps.google.com/?q=Dubai" target="_blank" rel="noopener">
+          <span class="contact-card-icon">⌖</span>
+          <small>OFFICE ADDRESS</small>
+          <strong>Dubai</strong>
+          <i>View location ↗</i>
+        </a>
+      </div>
+    </section>
+
+    <section class="quote-section" id="quote">
+      <div class="container quote-grid">
+        <div class="quote-intro reveal">
+          <div class="section-kicker">LET'S TALK</div>
+          <h2>Request a<br><em>Free Quote</em></h2>
+          <p>Tell us what you are looking to achieve. Our team will review your enquiry and help identify the right next step for your requirements.</p>
+
+          <div class="quote-note">
+            <span>GSAS</span>
+            <p>Global perspective, coordinated support and strategic guidance — delivered with professionalism and discretion.</p>
+          </div>
+        </div>
+
+        <form id="contactEnquiryForm" class="premium-contact-form reveal delay-1" onsubmit="event.preventDefault(); document.getElementById('formStatus').textContent='Thank you. Your enquiry has been captured in this demo.';">
+          <div class="form-topline"><span>ENQUIRY FORM</span><span>01 / 01</span></div>
+          <div class="form-row">
+            <label>Name<input type="text" name="name" placeholder="Your full name" required></label>
+            <label>Your Website<input type="url" name="website" placeholder="https://"></label>            
+          </div>
+          <div class="form-row">
+            <label>Phone Number<input type="tel" name="phone" placeholder="+971" inputmode="tel" pattern="\+?[0-9\s()\-]{7,20}" title="Enter a valid phone number using 7 to 15 digits. You may include +, spaces, brackets or hyphens." autocomplete="tel"></label>
+            <label>E-Mail<input type="email" name="email" placeholder="you@example.com" required pattern="[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}" title="Enter a valid email address, for example name@example.com" autocomplete="email"></label>
+          </div>
+          <label>Service
+            <select name="service">
+              <option value="">Choose a service</option>
+              <option>Business Banking Consultation and Facilitation</option>
+              <option>Company Formation and Business Setup Services</option>
+              <option>Investment and Wealth Solutions</option>
+              <option>High-End Life Insurance Facilitation</option>
+              <option>Commercial Brokerage Services</option>
+              <option>Specialist Advisory Connections and Structuring Guidance</option>
+            </select>
+          </label>
+          <div class="form-row">
+            <!-- <label>Security Check<input type="text" name="security" placeholder="14 + 13 = ?"></label> -->
+            <label>Preferred Contact
+              <select name="preferred">
+                <option>Email</option>
+                <option>Phone</option>
+              </select>
+            </label>
+          </div>
+          <label>Message<textarea name="message" rows="5" placeholder="Tell us briefly how we can help"></textarea></label>
+          <button class="btn btn-primary full" type="submit">Send Enquiry <span>↗</span></button>
+          <p id="formStatus" class="form-status"></p><p class="whatsapp-email-note">Your enquiry will be emailed securely to GSAS. After submission, WhatsApp will open with the same details pre-filled.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="contact-map-band">
+      <div class="container map-band-inner">
+        <div>
+          <div class="section-kicker light">OUR LOCATION</div>
+          <h2>Based in <em>Dubai.</em><br>Connected Globally.</h2>
+        </div>
+        <a class="map-visual" href="https://maps.google.com/?q=Dubai" target="_blank" rel="noopener" aria-label="Open Dubai in Google Maps">
+          <span class="map-grid"></span>
+          <span class="map-pin">⌖</span>
+          <strong>Dubai</strong>
+          <small>Open in Google Maps ↗</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand footer-logo" href="index.html"><img class="brand-logo" src="assets/gsas-logo.png" alt="GSAS International – Global Strategies and Solutions"></a>
+        <p>At GSAS, we simplify global finance with expert solutions in wealth management, banking, insurance, commercial brokerage, and company setup.</p>
+      </div>
+      <div><h4>Quick Links</h4><a href="index.html#about">About</a><a href="index.html#services">Services</a><a href="contact.html">Contact</a></div>
+      <div><h4>Contact Info</h4><span>Dubai</span><a href="tel:+971589797465">971 58 979 7465</a><a href="mailto:contact@gsasintl.com">contact@gsasintl.com</a></div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> GSAS | All Rights Reserved</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

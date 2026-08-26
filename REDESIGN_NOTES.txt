@@ -1,0 +1,16 @@
+GSAS International — Navy & Orange Brand Redesign
+
+This version has been restyled around the approved GSAS International logo direction:
+- Dark navy + orange brand palette
+- New GSAS logo integrated into header and footer
+- White professional navigation header
+- Navy/orange hero section with strategy/chess visual language
+- Orange CTA buttons and brand accents
+- Updated service cards, contact page and quotation page styling
+- Existing website content and form functionality retained
+- Responsive layout retained for desktop, tablet and mobile
+
+Main entry file: index.html
+Contact page: contact.html
+Quotation page: quotation.html
+Logo assets: assets/gsas-logo.png and assets/gsas-logo-header.png
