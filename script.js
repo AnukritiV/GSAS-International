@@ -43,24 +43,31 @@ if(stats) countObserver.observe(stats);
 const testimonials = [...document.querySelectorAll('.testimonial')];
 const dots = document.querySelector('.dots');
 let index = 0;
-testimonials.forEach((_,i)=>{
-  const d=document.createElement('button');
-  d.setAttribute('aria-label',`Go to review ${i+1}`);
-  d.addEventListener('click',()=>show(i));
-  dots.appendChild(d);
-});
-function show(i){
-  testimonials[index].classList.remove('active');
-  dots.children[index].classList.remove('active');
-  index=(i+testimonials.length)%testimonials.length;
-  testimonials[index].classList.add('active');
-  dots.children[index].classList.add('active');
-}
-dots.children[0]?.classList.add('active');
-document.querySelector('.prev')?.addEventListener('click',()=>show(index-1));
-document.querySelector('.next')?.addEventListener('click',()=>show(index+1));
 
-document.getElementById('year').textContent = new Date().getFullYear();
+// The testimonial carousel exists on the homepage only. Guard it so shared
+// JavaScript continues loading on Contact and Request a Quote pages.
+if (testimonials.length && dots) {
+  testimonials.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.setAttribute('aria-label',`Go to review ${i+1}`);
+    d.addEventListener('click',()=>show(i));
+    dots.appendChild(d);
+  });
+
+  function show(i){
+    testimonials[index].classList.remove('active');
+    dots.children[index]?.classList.remove('active');
+    index=(i+testimonials.length)%testimonials.length;
+    testimonials[index].classList.add('active');
+    dots.children[index]?.classList.add('active');
+  }
+
+  dots.children[0]?.classList.add('active');
+  document.querySelector('.prev')?.addEventListener('click',()=>show(index-1));
+  document.querySelector('.next')?.addEventListener('click',()=>show(index+1));
+}
+
+document.getElementById('year')?.replaceChildren(document.createTextNode(new Date().getFullYear()));
 
 
 /* GSAS form validation: email + international phone number */
@@ -535,37 +542,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* ===== GSAS Smart WhatsApp Assistant ===== */
+/* ===== GSAS Agentic AI + WhatsApp Assistant ===== */
 (() => {
   const SUPPORT = {
     whatsapp: '971589797465',
     phoneDisplay: '+971 58 979 7465',
     email: 'contact@gsasintl.com'
   };
+  const AI_API_URL = (window.GSAS_AI_API_URL || '').trim();
+  const history = [];
 
   const whatsappSvg = `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.37c-.28-.14-1.65-.81-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.39-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.55-.88-2.12-.23-.56-.47-.48-.64-.49h-.54c-.19 0-.49.07-.75.35-.26.28-.99.97-.99 2.36s1.01 2.73 1.15 2.92c.14.19 1.99 3.04 4.82 4.26.67.29 1.2.46 1.61.59.68.22 1.29.19 1.78.12.54-.08 1.65-.68 1.89-1.33.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33zM16.03 3.2A12.65 12.65 0 0 0 5.2 22.39L3.3 29.32l7.09-1.86a12.63 12.63 0 1 0 5.64-24.26zm0 22.99c-1.8 0-3.57-.48-5.1-1.39l-.37-.22-4.21 1.1 1.12-4.1-.24-.38A10.35 10.35 0 1 1 16.03 26.2z"/></svg>`;
 
   const launcher = document.createElement('button');
   launcher.className = 'gsas-assistant-launcher';
-  launcher.setAttribute('aria-label', 'Open GSAS WhatsApp assistant');
+  launcher.setAttribute('aria-label', 'Open GSAS AI assistant');
   launcher.setAttribute('aria-expanded', 'false');
   launcher.innerHTML = `${whatsappSvg}<span class="gsas-assistant-badge" aria-hidden="true"></span>`;
 
   const panel = document.createElement('section');
   panel.className = 'gsas-assistant-panel';
-  panel.setAttribute('aria-label', 'GSAS Smart Assistant');
+  panel.setAttribute('aria-label', 'GSAS AI Assistant');
   panel.innerHTML = `
     <div class="gsas-assistant-head">
       <div class="gsas-assistant-head-icon">${whatsappSvg}</div>
-      <div class="gsas-assistant-head-text"><strong>GSAS Smart Assistant</strong><span>Online • Guided support</span></div>
+      <div class="gsas-assistant-head-text"><strong>GSAS AI Assistant</strong><span>${AI_API_URL ? 'AI online • Human handoff available' : 'Guided mode • Human handoff available'}</span></div>
       <button class="gsas-assistant-close" aria-label="Close assistant">×</button>
     </div>
     <div class="gsas-assistant-body" aria-live="polite"></div>
     <div class="gsas-assistant-compose">
-      <textarea class="gsas-assistant-input" rows="1" placeholder="Tell me what you need..." aria-label="Message"></textarea>
+      <textarea class="gsas-assistant-input" rows="1" placeholder="Ask about banking, setup, investment, insurance..." aria-label="Message"></textarea>
       <button class="gsas-assistant-send" aria-label="Send message">➤</button>
     </div>
-    <div class="gsas-assistant-disclaimer">Smart routing assistant. For confidential or regulated matters, continue with a GSAS representative.</div>`;
+    <div class="gsas-assistant-disclaimer">AI guidance is general information, not legal, tax, financial or regulated advice. Do not share passwords, account numbers or sensitive documents in chat.</div>`;
 
   document.body.append(launcher, panel);
 
@@ -581,10 +590,19 @@ document.addEventListener('DOMContentLoaded', () => {
   function addMsg(html, who='bot') {
     const m = document.createElement('div');
     m.className = `gsas-msg ${who}`;
+
+    // User messages are always plain text. Bot UI markup is generated internally.
+    // Customer-facing AI/guided text is sanitized before it reaches this function.
     m.innerHTML = html;
     body.appendChild(m);
     body.scrollTop = body.scrollHeight;
     return m;
+  }
+
+  function setThinking(on) {
+    const existing = body.querySelector('.gsas-thinking');
+    if (existing) existing.remove();
+    if (on) addMsg('<span class="gsas-thinking"><i></i><i></i><i></i></span>');
   }
 
   function quickActions(items) {
@@ -593,66 +611,121 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(({label, value}) => {
       const b = document.createElement('button');
       b.type = 'button'; b.textContent = label;
-      b.addEventListener('click', () => route(value, label));
+      b.addEventListener('click', () => handleUserMessage(value, label));
       wrap.appendChild(b);
     });
     body.appendChild(wrap);
     body.scrollTop = body.scrollHeight;
   }
 
-  function handoff(topic, message, page='contact.html') {
-    const text = `Hello GSAS, I need assistance with ${topic}. ${message || ''}`.trim();
+  function handoff(topic, summary, page='contact.html') {
+    const text = `Hello GSAS, I am contacting you after using the website assistant.\n\nTopic: ${topic}\nSummary: ${summary || 'I would like assistance.'}\n\nPlease advise on the next step.`;
     return `<div class="gsas-agent-actions">
       <a class="gsas-agent-action primary" target="_blank" rel="noopener" href="${waUrl(text)}">Continue on WhatsApp</a>
       <a class="gsas-agent-action secondary" href="${mailUrl(`GSAS enquiry: ${topic}`, text)}">Send Email</a>
       <a class="gsas-agent-action secondary" href="tel:+971589797465">Call ${SUPPORT.phoneDisplay}</a>
-      <a class="gsas-agent-action secondary" href="${page}">Open Relevant Page</a>
+      <a class="gsas-agent-action secondary" href="${esc(page)}">Open Relevant Page</a>
     </div>`;
   }
 
   const intents = [
-    {keys:['bank','banking','account','bank account','facilitation'], topic:'Business Banking Consultation & Bank Account Facilitation', response:'For business banking or account facilitation, GSAS can review your requirements and guide you to the appropriate next step.', page:'index.html#services'},
-    {keys:['company','formation','setup','business setup','incorporat','license','licence'], topic:'Company Formation & Business Setup', response:'For company formation and business setup, the best next step is to share your jurisdiction, business activity and intended timeline.', page:'index.html#services'},
-    {keys:['investment','wealth','portfolio','investor'], topic:'Investment & Wealth Solutions', response:'For investment and wealth enquiries, GSAS can connect you with the appropriate consultation route. Please avoid sharing sensitive financial information in chat.', page:'index.html#services'},
-    {keys:['insurance','life insurance','policy','protection'], topic:'High-End Life Insurance Facilitation', response:'For life-insurance facilitation, GSAS can guide you toward the relevant specialist discussion based on your needs and jurisdiction.', page:'index.html#services'},
-    {keys:['broker','brokerage','commercial','deal'], topic:'Commercial Brokerage Services', response:'For commercial brokerage requirements, GSAS can first understand the transaction or commercial objective and route your enquiry appropriately.', page:'index.html#services'},
+    {keys:['bank','banking','account','facilitation'], topic:'Business Banking Consultation & Bank Account Facilitation', response:'GSAS can help assess your business banking or bank-account facilitation requirement. Useful details include your company jurisdiction, business activity, intended banking country and timeline.', page:'index.html#services'},
+    {keys:['company','formation','setup','incorporat','license','licence'], topic:'Company Formation & Business Setup', response:'For company formation and business setup, GSAS can help route your requirement based on jurisdiction, activity, ownership structure and expected timeline.', page:'index.html#services'},
+    {keys:['investment','wealth','portfolio','investor'], topic:'Investment & Wealth Solutions', response:'GSAS can route investment and wealth enquiries to the appropriate consultation path. Please avoid sharing sensitive financial information in this chat.', page:'index.html#services'},
+    {keys:['insurance','life insurance','policy','protection'], topic:'High-End Life Insurance Facilitation', response:'GSAS can help route life-insurance facilitation enquiries based on your objectives and jurisdiction.', page:'index.html#services'},
+    {keys:['broker','brokerage','commercial','deal'], topic:'Commercial Brokerage Services', response:'For commercial brokerage requirements, GSAS can first understand the transaction objective, jurisdiction and stage, then guide you to the appropriate next step.', page:'index.html#services'},
     {keys:['advisory','structur','specialist','consultant','consulting'], topic:'Specialist Advisory & Structuring Guidance', response:'For specialist advisory or structuring needs, GSAS can identify the appropriate advisory path after understanding your objective and jurisdiction.', page:'index.html#services'},
-    {keys:['quote','quotation','price','pricing','cost','proposal','budget'], topic:'Quotation Request', response:'For pricing or a formal proposal, please use the Request a Quote page so GSAS receives the scope, budget and timeline needed to respond accurately.', page:'quotation.html'},
-    {keys:['contact','support','help','human','agent','representative','email','phone','call','whatsapp'], topic:'General Support', response:`You can reach GSAS by WhatsApp/phone at <strong>${SUPPORT.phoneDisplay}</strong> or by email at <strong>${SUPPORT.email}</strong>.`, page:'contact.html'}
+    {keys:['quote','quotation','price','pricing','cost','proposal','budget'], topic:'Quotation Request', response:'For pricing or a formal proposal, the Request a Quote page is the best route because it captures the scope, budget and timeline needed for review.', page:'quotation.html'},
+    {keys:['contact','support','help','human','agent','representative','email','phone','call','whatsapp'], topic:'General Support', response:`You can reach GSAS by WhatsApp/phone at ${SUPPORT.phoneDisplay} or by email at ${SUPPORT.email}.`, page:'contact.html'}
   ];
 
-  function route(value, label) {
-    const raw = value || '';
-    if (label) addMsg(esc(label), 'user');
+  function guidedReply(raw) {
     const q = raw.toLowerCase();
+    const match = intents.find(i => i.keys.some(k => q.includes(k)));
+    if (match) return {reply:match.response, topic:match.topic, route:match.page, handoffSummary:raw};
+    return {reply:'I can help route this enquiry. To give you the right next step, please tell me whether it relates to banking, company setup, investment/wealth, insurance, commercial brokerage, specialist advisory, pricing, or general support.', topic:'General Enquiry', route:'contact.html', handoffSummary:raw};
+  }
 
-    if (q === 'start') {
-      addMsg('Welcome to <strong>GSAS International</strong>. I can help identify the right service, take you to the correct page, or connect you with a representative. What would you like help with?');
+  async function askAI(raw) {
+    if (!AI_API_URL) return guidedReply(raw);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 18000);
+    try {
+      const response = await fetch(AI_API_URL.replace(/\/$/, '') + '/api/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        signal:controller.signal,
+        body:JSON.stringify({
+          message: raw,
+          history: history.slice(-10),
+          page: location.pathname.split('/').pop() || 'index.html'
+        })
+      });
+      if (!response.ok) throw new Error(`AI service ${response.status}`);
+      const data = await response.json();
+      if (!data || !data.reply) throw new Error('Invalid AI response');
+      return data;
+    } catch (err) {
+      console.warn('GSAS AI unavailable, using guided fallback:', err);
+      return guidedReply(raw);
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  async function handleUserMessage(value, label) {
+    const raw = (value || '').trim();
+    if (!raw) return;
+    if (raw === 'start') {
+      addMsg('Welcome to <strong>GSAS International</strong>. I can understand your requirement, ask follow-up questions, recommend the appropriate service, and prepare a handoff to our team. How can I help?');
       quickActions([
-        {label:'Banking',value:'banking'}, {label:'Company Setup',value:'company setup'},
-        {label:'Investment & Wealth',value:'investment'}, {label:'Insurance',value:'insurance'},
-        {label:'Commercial Brokerage',value:'brokerage'}, {label:'Specialist Advisory',value:'advisory'},
-        {label:'Request a Quote',value:'quotation'}, {label:'Contact / Support',value:'support'}
+        {label:'Banking',value:'I need help with business banking'},
+        {label:'Company Setup',value:'I want to set up a company'},
+        {label:'Investment & Wealth',value:'I need investment or wealth support'},
+        {label:'Insurance',value:'I need help with life insurance'},
+        {label:'Commercial Brokerage',value:'I have a commercial brokerage enquiry'},
+        {label:'Specialist Advisory',value:'I need specialist advisory'},
+        {label:'Request a Quote',value:'I want a quotation'},
+        {label:'Human Support',value:'I want to speak with a representative'}
       ]);
       return;
     }
 
-    const match = intents.find(i => i.keys.some(k => q.includes(k)));
-    if (match) {
-      addMsg(`${match.response}${handoff(match.topic, raw, match.page)}`);
-      quickActions([{label:'Another enquiry',value:'start'}]);
+    if (label) addMsg(esc(label), 'user');
+    history.push({role:'user', content:raw});
+    setThinking(true);
+    const result = await askAI(raw);
+    setThinking(false);
+
+    const topic = result.topic || 'General Enquiry';
+    const page = result.route || 'contact.html';
+    const summary = result.handoffSummary || raw;
+    const reply = esc(result.reply || 'I can help route your enquiry.').replace(/\n/g,'<br>');
+    addMsg(`${reply}${handoff(topic, summary, page)}`);
+    history.push({role:'assistant', content:result.reply || ''});
+
+    if (result.followup) {
+      quickActions([{label:esc(result.followup), value:result.followup}]);
     } else {
-      addMsg(`I can help route that enquiry. Based on what you've written, the safest next step is for GSAS to review it directly.${handoff('General Enquiry', raw, 'contact.html')}`);
-      quickActions([{label:'Show service options',value:'start'}]);
+      quickActions([{label:'Ask another question',value:'start'}]);
     }
   }
 
-  function send() {
+  async function send() {
     const value = input.value.trim();
     if (!value) return;
     input.value = '';
     addMsg(esc(value), 'user');
-    route(value);
+    history.push({role:'user', content:value});
+    setThinking(true);
+    const result = await askAI(value);
+    setThinking(false);
+    const topic = result.topic || 'General Enquiry';
+    const page = result.route || 'contact.html';
+    const summary = result.handoffSummary || value;
+    const reply = esc(result.reply || 'I can help route your enquiry.').replace(/\n/g,'<br>');
+    addMsg(`${reply}${handoff(topic, summary, page)}`);
+    history.push({role:'assistant', content:result.reply || ''});
   }
 
   launcher.addEventListener('click', () => {
@@ -660,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.classList.toggle('open', open);
     launcher.setAttribute('aria-expanded', String(open));
     if (open) {
-      if (!body.children.length) route('start');
+      if (!body.children.length) handleUserMessage('start');
       setTimeout(() => input.focus(), 100);
     }
   });
