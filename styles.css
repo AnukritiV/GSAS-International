@@ -331,23 +331,48 @@ body.service-modal-open{overflow:hidden}
 }
 
 
-/* Mobile navigation: keep Request a Quote accessible inside the hamburger menu */
+/* Mobile navigation: keep Request a Quote accessible inside every hamburger menu */
 .mobile-quote-link{display:none;}
 @media(max-width:980px){
-  .nav-links.open .mobile-quote-link{
+  .nav-links .mobile-quote-link{
     display:flex;
     align-items:center;
     justify-content:center;
+    width:100%;
     margin-top:8px;
     padding:12px 18px;
-    border-radius:6px;
+    border-radius:8px;
     background:var(--orange);
     color:#fff !important;
     font-weight:700;
     text-align:center;
   }
-  .nav-links.open .mobile-quote-link:hover{
+  .nav-links .mobile-quote-link:hover,
+  .nav-links .mobile-quote-link.active-nav{
     background:var(--orange-2);
     color:#fff !important;
+  }
+}
+
+
+/* Mobile navigation: keep Contact clearly accessible in the hamburger menu */
+@media(max-width:980px){
+  .nav-links.open .mobile-contact-link{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:12px 18px;
+    margin-top:4px;
+    border:2px solid var(--orange);
+    border-radius:8px;
+    color:var(--orange)!important;
+    font-weight:700;
+    text-align:center;
+  }
+  .nav-links.open .mobile-contact-link:hover,
+  .nav-links.open .mobile-contact-link.active-nav{
+    background:var(--orange);
+    color:#fff!important;
   }
 }
