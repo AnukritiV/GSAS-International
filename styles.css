@@ -376,3 +376,26 @@ body.service-modal-open{overflow:hidden}
     color:#fff!important;
   }
 }
+
+/* ===== GSAS Smart WhatsApp Assistant ===== */
+.gsas-assistant-launcher{position:fixed;right:24px;bottom:24px;width:62px;height:62px;border:0;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9998;box-shadow:0 12px 30px rgba(0,0,0,.22);transition:transform .2s ease,box-shadow .2s ease}
+.gsas-assistant-launcher:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 16px 34px rgba(0,0,0,.28)}
+.gsas-assistant-launcher svg{width:31px;height:31px;fill:currentColor}
+.gsas-assistant-badge{position:absolute;top:-2px;right:-2px;width:17px;height:17px;border-radius:50%;background:#f47b20;border:3px solid #fff}
+.gsas-assistant-panel{position:fixed;right:24px;bottom:98px;width:min(390px,calc(100vw - 32px));height:min(600px,calc(100vh - 130px));background:#fff;border-radius:20px;box-shadow:0 22px 60px rgba(6,28,55,.28);z-index:9999;overflow:hidden;display:none;flex-direction:column;border:1px solid rgba(10,42,74,.09)}
+.gsas-assistant-panel.open{display:flex;animation:gsasChatIn .22s ease-out}
+@keyframes gsasChatIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.gsas-assistant-head{background:#082d52;color:#fff;padding:15px 16px;display:flex;align-items:center;gap:11px}
+.gsas-assistant-head-icon{width:39px;height:39px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.gsas-assistant-head-icon svg{width:21px;height:21px;fill:#fff}
+.gsas-assistant-head-text{min-width:0;flex:1}.gsas-assistant-head-text strong{display:block;font-size:15px}.gsas-assistant-head-text span{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:11px;color:rgba(255,255,255,.76)}
+.gsas-assistant-head-text span:before{content:"";width:7px;height:7px;background:#39d98a;border-radius:50%}
+.gsas-assistant-close{border:0;background:transparent;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:3px 5px;border-radius:8px}
+.gsas-assistant-body{flex:1;overflow:auto;padding:16px;background:#f3f6f8;scroll-behavior:smooth}
+.gsas-msg{max-width:87%;padding:10px 12px;margin:0 0 10px;border-radius:14px;font-size:13px;line-height:1.48;box-shadow:0 2px 7px rgba(6,28,55,.06)}
+.gsas-msg.bot{background:#fff;color:#183247;border-top-left-radius:5px}.gsas-msg.user{background:#d9fdd3;color:#13341e;margin-left:auto;border-top-right-radius:5px}
+.gsas-msg a{font-weight:700;color:#0b5f45;text-decoration:underline}
+.gsas-quick-actions{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 12px}.gsas-quick-actions button{background:#fff;border:1px solid #d6e0e7;color:#123d63;border-radius:999px;padding:8px 10px;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;transition:.15s ease}.gsas-quick-actions button:hover{border-color:#f47b20;color:#cf5c0b;background:#fffaf6}
+.gsas-assistant-compose{padding:10px;background:#fff;border-top:1px solid #e4e9ed;display:flex;gap:8px;align-items:flex-end}.gsas-assistant-input{flex:1;resize:none;max-height:92px;min-height:42px;border:1px solid #d9e1e7;border-radius:13px;padding:10px 12px;font:inherit;font-size:13px;outline:none}.gsas-assistant-input:focus{border-color:#f47b20;box-shadow:0 0 0 3px rgba(244,123,32,.1)}
+.gsas-assistant-send{width:43px;height:43px;border:0;border-radius:50%;background:#f47b20;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 auto}.gsas-assistant-disclaimer{font-size:9.5px;color:#778895;background:#fff;padding:0 12px 9px;text-align:center}.gsas-agent-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.gsas-agent-action{display:flex!important;justify-content:center;align-items:center;text-decoration:none!important;border-radius:10px;padding:9px 8px!important;font-size:11px!important;font-weight:700!important}.gsas-agent-action.primary{background:#25D366!important;color:#fff!important}.gsas-agent-action.secondary{background:#eef3f7!important;color:#123d63!important}
+@media(max-width:640px){.gsas-assistant-launcher{right:16px;bottom:18px;width:58px;height:58px}.gsas-assistant-panel{right:8px;left:8px;bottom:86px;width:auto;height:min(610px,calc(100vh - 105px));border-radius:18px}.gsas-assistant-body{padding:13px}}
